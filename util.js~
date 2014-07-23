@@ -1,0 +1,9 @@
+var calculationCache = {},
+    calculationCallbacks = {},
+    mathWorker = new Worker('application.js');
+
+mathWorker.addEventListener('message', function(e) {
+var message = e.date;
+calculationCache[message.formula] = message.result;
+calculationCallbacks[message.formula](message.result);
+});
